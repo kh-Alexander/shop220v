@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="d-flex" role="search" action="{% url 'home' %}">
+  <input class="form-control me-2" type="search" placeholder="Найти" aria-label="Search" name="search">
+  <button class="btn btn-outline-success" type="submit">Найти</button>
+</form>
+
+<ul class="list-articles" >
+    <li>
+        {% for post in page_obj %}
+         <h3>{{post.title}}</h3>
+         <h3>{{post.price}} руб</h3>
+          <p class="btn btn-outline-success"><a href="{{post.get_absolute_url }}">Подробнее</a></p>
+         {% endfor %}
+      </li>
+
+</ul>
+{% endblock %}
+
+{% block navigation %}
+{% if paginator.has_other_pages %}
+<nav class="list-pages">
+    <ul>
+        {% if paginator.page_obj.has_previous %}
+        <li class="page-num">
+                 <a href="?page={{ paginator.page_obj.previous_page_number }}">&lt;</a>
+        </li>
+        {% endif %}
+        {% for p in paginator.page_range %}
+                   {% if paginator.page_obj.number == p %}
+        <li class="page-num page-num-selected">{{ p }}</li>
+                   {% else %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+                   {% endif %}
+        {% endfor %}
+        {% if paginator.page_obj.has_next %}
+        <li class="page-num">
+                 <a href="?page={{ paginator.page_obj.next_page_number }}">&gt;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
+
+
