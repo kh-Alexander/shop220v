@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<title>Уроки по JavaScript</title>
+<style>
+#main_menu {
+  margin: 10px; padding: 0;
+  list-style: none; font-size: 24px;
+  width: 200px; background: #eee;
+  cursor: pointer;
+}
+#main_menu li { margin-bottom: 10px; padding: 5px;}
+#main_menu li:hover {background: #FF4EF5;}
+</style>
+</head>
+<body>
+<p><input type="button" data-toggle-id="main_menu" value="Показать/Скрыть меню" />
+<ul id="main_menu">
+
+ <li data-command="open">Открыть</li><li data-command="save">Сохранить</li>
+<li data-command="draw">Рисовать</li><li data-command="edit">Редактировать</li>
+<li data-command="customize">Настройки</li>
+</ul>
+<script>
+   let menuActs = {
+     open() {alert("open...");},
+     save() {alert("save...");},
+};
+
+document.addEventListener("click", function(event) {
+   let id = event.target.dataset.toggleId;
+   if(!id) return;
+   let elem = document.getElementById(id);
+   if(!elem) return;
+   elem.hidden = !elem.hidden;
+});
+
+    main_menu.addEventListener("click", function(event) {
+      let li = event.target.closest('li');
+      if(li == null) return;
+      let act = li.dataset.command;
+      if(act && menuActs[act] !== undefined) menuActs[act]();
+});
+</script>
+</body>
+</html>

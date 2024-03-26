@@ -24,7 +24,8 @@ from shopmain.views import page_not_found
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shopmain.urls')),
-     path("__debug__/", include("debug_toolbar.urls")),
+    path('cart', include('cart.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 handler404 = page_not_found
